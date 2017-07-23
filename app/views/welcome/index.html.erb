@@ -1,0 +1,77 @@
+
+<div id="container">
+  <div id="header">
+    <div class="frame padding10">
+      <a href="/welcome/index" style="color: inherit; font: inherit; text-decoration: inherit;">
+        WinterMood
+      </a>
+    </div>
+  </div>
+  <div id="main">
+    <div id="feature">
+      <div class="frame">
+        <div class="left v_center">
+        WinterMood is an application that tracks your mood and determines if you are subject to Seasonal Affective Disorder
+        </div>
+      </div>
+    </div>
+
+    <% if (!logged_in?) %>
+
+      <div class="buttons">
+        <%= link_to("/welcome/login") do %>
+          <button type="button" class="big">Login</button>
+        <% end %>
+        <%= link_to("/welcome/registration") do %>
+          <button type="button" class="big">Register</button>
+        <% end %>
+      </div>
+
+    <% else %>
+
+      <div class="username_display">
+        <span style="font-size: 20px" > You're logged in as: </span> <br />
+        <span style="font-size: 46px" > <%= current_user.username.titleize %> </span>
+      </div>
+
+      <div class="buttons">
+
+        <% if (current_user.username == "john cena") %>
+          <%= link_to("/welcome/user_listing") do %>
+            <button type="button" class="big">View users</button>
+          <% end %>
+        <% else %>
+          <%= link_to("/dataentry/index") do %>
+            <button type="button" class="big">Log data</button>
+          <% end %>
+          <%= link_to("/welcome/#{current_user.id}") do %>
+            <button type="button" class="big">View trends</button>
+          <% end %>
+        <% end %>
+
+        <%= link_to("/welcome/destroy_session", :method => :post) do %>
+            <button type="button" class="big">Log out</button>
+        <% end %>
+      </div>
+
+
+    <% end %>
+
+
+  </div>
+  <div id="footer">
+    <div class="frame">
+      <div class="left">
+        &#169; WinterMood 2017
+      </div>
+    <div class="right">
+      <b>Project created and developed by:</b><br/>
+        Vasundhara Gautam<br/>
+        Gabriel Faulhaber<br/>
+        Dylan Bing-Manners<br/>
+        Gavin Xu<br/>
+        Mitchell Larson<br/>
+      </div>
+    </div>
+  </div>
+</div>

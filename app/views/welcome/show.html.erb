@@ -1,0 +1,113 @@
+
+<%-# In the instructions below, application.js must be included before the -%>
+<%-# helper methods in your views, unless using the :content_for option. -%>
+
+<% noun =
+        if (current_user.username == @user.username)
+          "Your"
+        else
+          "User's"
+        end
+  %>
+
+<p>
+  <strong><%=noun%> username is:</strong>
+  <%= @user.username %>
+</p>
+<p>
+  <strong><%=noun%> email ID is:</strong>
+  <%= @user.email %>
+</p>
+
+<a href="/dataentry/index">
+  Enter Data!
+</a>
+
+<% if (@moods.size == 0) %>
+
+  <p>
+    <strong><%=noun%> mood data will display here... if you had any.</strong>
+  </p>
+
+<% else %>
+
+  <p>
+    <strong>Default Input Values:</strong>
+  </p>
+  <p>
+    <strong>City: </strong>
+    <%= "#{@ext.defaultCity}" %>
+  </p>
+  <p>
+    <strong>Sleep: </strong>
+    <%= "#{@ext.defaultSleep}" %>
+  </p>
+  <p>
+    <strong>Exercise: </strong>
+    <%= "#{@ext.defaultExercise}" %>
+  </p>
+
+
+  <br />
+  <p>
+    <strong>Inputted Data:</strong>
+  </p>
+
+  <table border="1">
+    <tr>
+      <th>City</th>
+      <th>Mood</th>
+      <th>Sleep</th>
+      <th>Exercise</th>
+      <th>Overcast</th>
+      <th>Time</th>
+    </tr>
+
+    <% @moods.each do |mood| %>
+
+      <tr>
+        <td>
+          <%= "#{mood.city}" %>
+        </td>
+        <td>
+          <%= "#{mood.mood}" %>
+        </td>
+        <td>
+          <%= "#{mood.sleep}" %>
+        </td>
+        <td>
+          <%= "#{mood.exercise}" %>
+        </td>
+        <td>
+          <%= "#{mood.overcast}" %>
+        </td>
+        <td>
+          <%= "#{mood.created_at}" %>
+        </td>
+      </tr>
+
+    <% end %>
+  </table>
+
+  <p>
+    <strong>Mood changes by time:</strong>
+  </p>
+  <%= line_chart Mood.pluck(:created_at, :mood) %>
+  <p>
+    <strong>Mood changes by exercise time:</strong>
+  </p>
+  <%= line_chart Mood.pluck(:exercise, :mood) %>
+  <p>
+    <strong>Mood changes by citys:</strong>
+  </p>
+  <%= line_chart Mood.pluck(:city, :mood) %>
+  <p>
+    <strong>Mood changes by sleeping time:</strong>
+  </p>
+  <%= line_chart Mood.pluck(:sleep, :mood) %>
+  <p>
+    <strong>Mood changes by overcast:</strong>
+  </p>
+  <%= line_chart Mood.pluck(:overcast, :mood) %>
+
+<% end %>
