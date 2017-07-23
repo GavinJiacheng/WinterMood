@@ -1,3 +1,6 @@
+I did some changes about the charts of our project.
+
+
 # WinterMood - Project proposal
  
 ## Team members
